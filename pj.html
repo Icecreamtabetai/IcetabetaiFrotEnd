@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>게시글 상세 페이지</title>
+    <link rel="stylesheet" href="pj.css" />
+    <script src="pj.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1 th:text="${board.title}">제목입니다.</h1>
+      <p th:text="${board.content}">내용이 들어갈 부분입니다.</p>
+      <div>
+        <button class="btn" onclick="location.href='@{/board/modify/{Id}(Id=${board.id})}'">
+          <a th:href="@{/board/modify/{Id}(Id=${board.id})}">글 수정</a>
+        </button>
+        <button class="btn" onclick="showConfirmationModal()">글 삭제</button>
+      </div>
+      <div class="top-left">
+        <button class="btn" onclick="location.href='@{/board/list}'">
+          <a th:href="@{/board/list}">목록으로</a>
+        </button>
+      </div>
+    </div>
+
+    <!-- 삭제 모달창 -->
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <h2>게시물 삭제</h2>
+        <p class="delete_massage">정말로 이 게시물을 삭제하시겠습니까?</p>
+        <div class="modal-buttons">
+          <input type="hidden" id="postId" th:value="${board.id}" />
+          <button class="modal-button confirm" onclick="deletePost()">
+            예
+          </button>
+          <button class="modal-button cancel" onclick="cancelDelete()">
+            아니오
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
